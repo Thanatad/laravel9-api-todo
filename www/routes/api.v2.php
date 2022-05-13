@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V2\VersionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('version', function () {
-    return ['version' => '2.0'];
-});
+// Route::get('version', function () {
+//     return ['version' => '2.0'];
+// });
+
+Route::get('version', [VersionController::class, 'index']);
