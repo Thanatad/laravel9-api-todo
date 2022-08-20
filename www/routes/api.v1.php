@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\VersionController;
+use App\Http\Controllers\Api\V1\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +20,11 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-// Route::get('version', function () {
-//     return ['version' => '1.0'];
-// });
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get('version', [VersionController::class, 'index']);
+    Route::post('logout', [AuthController::class, 'logout']);
+});
 
-Route::get('version', [VersionController::class, 'index']);
+
+Route::post('register', [AuthController::class, 'register']);
+Route::post('signin', [AuthController::class, 'signin']);

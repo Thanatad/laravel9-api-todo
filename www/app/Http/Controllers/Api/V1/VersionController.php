@@ -10,12 +10,16 @@ class VersionController extends Controller
 {
     function index()
     {
-        $data = [[
-            'color' => 'orange',
-            'type' => 'fruit',
-            'remain' => 6,
-        ]];
+        if ($this->user->tokenCan("1")) {
+            $data = [[
+                'color' => 'orange',
+                'type' => 'fruit',
+                'remain' => 6,
+            ]];
 
-        return response(new VersionCollection($data));
+            return response(new VersionCollection($data));
+        } else {
+            return response(["message" => "no permission"]);
+        }
     }
 }
